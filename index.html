@@ -1,0 +1,78 @@
+<html>
+
+<head>
+  <title>Game of Life</title>
+
+  <style>
+    #seletor {
+      position: absolute;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.75);
+      top: 25px;
+      left: 25px;
+      line-height: 2em;
+      padding: 1em;
+      color: white;
+    }
+
+    body {
+      overflow: hidden;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+</head>
+
+<body style="margin:0;">
+  <div id="seletor">
+    <span>Aperte F11 para tela cheia</span><br /><br />
+    <span>Tipos:</span><br />
+    <a href="?tipo=original">ORIGINAL</a><br />
+    <a href="?tipo=color-blend">COLOR-BLEND</a><br />
+    <a href="?tipo=rainbow-phasing">RAINBOW-PHASING</a><br />
+    <a href="?tipo=rainbow">RAINBOW</a><br /><br />
+    <button onclick="fechar_seletor()">Esconder</button>
+  </div>
+
+  <script>
+    function fechar_seletor() {
+      const url = new URL(window.location);
+      url.searchParams.set("seletor", "esconder");
+      window.location.href = url;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const tipo = params.get('tipo');
+    const seletor = params.get('seletor');
+
+    if (seletor == "esconder") {
+      document.getElementById("seletor").remove();
+    }
+
+    const elemento_script = document.createElement('script');
+
+    switch (tipo) {
+
+      case 'original':
+        elemento_script.src = 'ORIGINAL.js';
+        break;
+      case 'rainbow-phasing':
+        elemento_script.src = 'RAINBOW-PHASING.js';
+        break;
+      case 'rainbow':
+        elemento_script.src = 'RAINBOW.js';
+        break;
+      case 'color-blend':
+      default:
+        elemento_script.src = 'COLOR-BLEND.js';
+        break;
+    }
+
+    elemento_script.type = "text/javascript";
+
+    console.log(1)
+    document.body.appendChild(elemento_script);
+    console.log(1)
+  </script>
+</body>
+
+</html>
